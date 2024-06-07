@@ -21,6 +21,11 @@ public class Interact : MonoBehaviour
                 heldItem = Instantiate(breadPrefab, transform, true);
                 heldItem.transform.localPosition = new Vector3(0, 2, 2);
             }
+
+            if (triggerName == "Stove")
+            {
+                print("Space!");
+            }
         }
     }
 
