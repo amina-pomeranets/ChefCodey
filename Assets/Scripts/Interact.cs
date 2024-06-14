@@ -38,12 +38,32 @@ public class Interact : MonoBehaviour
                     Destroy(heldItem);
                     heldItemName = "";
                     toast.SetActive(true);
+                    stove.ToastBread();
                 }
                 else 
                 {
-                    print("Codey is empty handed!");
+                    print("not holding toast");
+                    if (stove.cookedFood == "toast")
+                    {
+                        print("toasted");
+                        heldItem = Instantiate(breadPrefab, transform, false);
+                        heldItem.transform.localPosition = new Vector3(0, 2, 2);
+                        heldItem.transform.localScale = new Vector3(16, 2, 16);
+                        heldItemName = "toastSlice";
+                        stove.CleanStove();
+                    }
                 }
             }
+
+            if (triggerName == "Receivers")
+            {
+                if (heldItemName == "toastSlice")
+                {
+                    Destroy(heldItem);
+                    heldItemName = "";
+                }
+            }
+
         }
     }
 
@@ -55,5 +75,11 @@ public class Interact : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         triggerName = "";
+    }
+
+    private void PlaceHeldItem()
+    {
+        Destroy(heldItem);
+        heldItemName = "";
     }
 }
