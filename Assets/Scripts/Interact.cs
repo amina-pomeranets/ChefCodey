@@ -82,7 +82,6 @@ public class Interact : MonoBehaviour
                         //heldItem.transform.localScale = new Vector3(16, 2, 16);
                         stove.CleanStove();
                     }
-
                 }
             }
 
@@ -90,8 +89,15 @@ public class Interact : MonoBehaviour
             {
                 if (heldItemName == "toastSlice")
                 {
-                    Destroy(heldItem);
+                    //Destroy(heldItem);
+                    PlaceHeldItem();
                     GameObject.Find("Receivers/French Toast/toastSlice").SetActive(true);
+                }
+
+                if (heldItemName == "friedEgg")
+                {
+                    PlaceHeldItem();
+                    GameObject.Find("Receivers/French Toast/friedEgg").SetActive(true);
                 }
             }
         }
