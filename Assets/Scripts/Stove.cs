@@ -10,6 +10,7 @@ public class Stove : MonoBehaviour
 
     [Header("Inventory")]
     public string cookedFood = "";
+    public bool isCooking = false;
 
     [Header("Particles")]
     public ParticleSystem smoke;
@@ -22,18 +23,22 @@ public class Stove : MonoBehaviour
         friedEgg.SetActive(false);
     }
 
-    public void ToastBread()
-    {
-        smoke.Play();
-        toast.SetActive(true);
-        cookedFood = "toast";
-    }
-
     public void FryEgg()
     {
+        isCooking = true;
         smoke.Play();
         friedEgg.SetActive(true);
         cookedFood = "friedEgg";
+        Invoke("CompleteCooking", 8f);
+    }
+
+    public void ToastBread()
+    {
+        isCooking = true;
+        smoke.Play();
+        toast.SetActive(true);
+        cookedFood = "toast";
+        Invoke("CompleteCooking", 6f);
     }
 
     public void CleanStove()
@@ -41,5 +46,13 @@ public class Stove : MonoBehaviour
         toast.SetActive(false);
         friedEgg.SetActive(false);
         cookedFood = "";
+        complete.Stop();
+    }
+
+    private void CompleteCooking()
+    {
+        isCooking = false;
+        smoke.Stop();
+        complete.Play();
     }
 }

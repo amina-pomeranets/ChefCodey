@@ -19,6 +19,8 @@ public class Interact : MonoBehaviour
     public GameObject heldItem;
     public string heldItemName;
 
+    public bool isCooking = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -44,11 +46,15 @@ public class Interact : MonoBehaviour
             if (triggerName == "Stove")
             {
                 print("I'm at the stove!");
-                if (heldItemName == "breadSlice") 
+
+                if (stove.isCooking) return;
+
+                if (heldItemName == "breadSlice")
                 {
                     print("Ready to toast!");
                     Destroy(heldItem);
                     heldItemName = "";
+
                     toast.SetActive(true);
                     stove.ToastBread();
                 }
@@ -71,6 +77,7 @@ public class Interact : MonoBehaviour
                         heldItemName = "toastSlice";
                         stove.CleanStove();
                         */
+
                         PickUpItem(breadPrefab, "toastSlice");
                         heldItem.transform.localScale = new Vector3(16, 2, 16);
                         stove.CleanStove();
